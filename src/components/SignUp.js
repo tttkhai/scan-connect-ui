@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import UserPool from "../UserPool"
+import { api } from '../utils/api'
 
 function SignUp() {
     const [email, setEmail] = useState("")
@@ -8,12 +9,23 @@ function SignUp() {
 
     const onSubmit = (e) => {
         e.preventDefault()
-        UserPool.signUp(email, password, [], null, (err, data) => {
+        UserPool.signUp(email, password, [], null, async (err, data) => {
             if (err) {
                 console.log(err);
             }
             console.log(data);
+
+            // create a new user record in backend
+            const res = signUp()
+
+            if (res) {
+                // todo: redirect to dashboard
+            }
         })
+    }
+
+    const signUp = async (body) => {
+        await api().post("/signup", body)
     }
 
     return (

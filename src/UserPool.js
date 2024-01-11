@@ -5,4 +5,5 @@ const poolData = {
     ClientId: "5hsfvr0t1294gj3fgiaiecoqla"
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default new CognitoUserPool(poolData);

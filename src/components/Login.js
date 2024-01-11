@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js'
 import UserPool from '../UserPool'
+import Cookies from 'js-cookie';
 
 function Login() {
     const [email, setEmail] = useState("")
@@ -23,6 +24,8 @@ function Login() {
         user.authenticateUser(authDetails, {
             onSuccess: (data) => {
                 console.log("onSuccess: ", data );
+                const token = data.accessToken.jwtToken;
+                Cookies.set('token', token, { expires: 7, secure: false });
             },
             onFailure: (data) => {
                 console.log("onFailure: ", data );
